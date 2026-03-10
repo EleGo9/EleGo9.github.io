@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elena Govi — Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F5F0;
+      --ink: #1A1814;
+      --muted: #8A8070;
+      --accent: #2D5A4A;
+      --accent-light: #E8EDE9;
+      --border: #D8D4CC;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--serif);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .header-text h1 {
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .header-text h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .header-text .tagline {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.2rem;
+    }
+
+    .header-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-end;
+      padding-top: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .header-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .header-links a:hover { color: var(--accent); }
+
+    /* ── Nav ── */
+    nav {
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--ink); }
+
+    /* ── Sections ── */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* ── About ── */
+    #about p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.9;
+      max-width: 660px;
+      color: var(--ink);
+    }
+
+    #about p + p { margin-top: 1.2rem; }
+
+    /* ── Research interests ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.3rem 0.85rem;
+      border-radius: 2px;
+    }
+
+    /* ── Publications / cards ── */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 0 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-year {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+
+    .pub-title {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .pub-venue {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── GitHub Repos ── */
+    #repos .section-label span {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .repos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 0;
+    }
+
+    .repo-card {
+      background: var(--bg);
+      padding: 1.4rem 1.6rem;
+      transition: background 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .repo-card:hover { background: #F0EDE5; }
+
+    .repo-name {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .repo-desc {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .repo-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .repo-lang::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    .repos-loading {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding: 2rem 0;
+    }
+
+    /* ── Affiliations ── */
+    .affiliations {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .affil-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+    }
+
+    .affil-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-bottom: 2px;
+      align-self: center;
+    }
+
+    .affil-name {
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+
+    .affil-role {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-top: 0.1rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 2.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--accent); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in { animation: fadeUp 0.7s ease both; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; }
+      .header-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      nav ul { gap: 1.4rem; }
+      .pub-item { grid-template-columns: 1fr; gap: 0.3rem; }
+      footer { flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ── Header ── -->
+  <header>
+    <div class="header-inner">
+      <div class="header-text">
+        <h1>Elena <em>Govi</em></h1>
+        <p class="tagline">Computer Vision · Robotics · 3D Perception</p>
+      </div>
+      <div class="header-links">
+        <a href="https://github.com/EleGo9" target="_blank">↗ GitHub</a>
+        <a href="/cdn-cgi/l/email-protection#caafa6afa4abe4ada5bca38abfa4a3a7a5b8afe4a3be">↗ Email</a>
+        <a href="https://www.unimore.it" target="_blank">↗ UNIMORE</a>
+        <a href="https://hipert.unimore.it" target="_blank">↗ HiPeRT Lab</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#repos">Code</a></li>
+      <li><a href="#affiliations">Affiliations</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <p>
+        I am an AI Engineer at Hipert Srl, working on computer vision and perception systems for autonomous and robotic applications. My work focuses on 3D scene understanding — spanning 6D pose estimation, monocular 3D object detection, and robotic manipulation pipelines.
+    </p>
+    <p>
+      I hold a PhD in Computer Science from the University of Modena and Reggio Emilia, where I previously worked as an AI researcher at HiPeRT Lab. I am passionate about knowledge sharing and community building: I have taught AI to industry professionals, co-organised international workshops, and conducted research as a visiting PhD student in Munich.
+    </p>
+    <div class="tags">
+      <span class="tag">6D Pose Estimation</span>
+      <span class="tag">3D Object Detection</span>
+      <span class="tag">Robotic Manipulation</span>
+      <span class="tag">Autonomous Driving</span>
+      <span class="tag">TensorRT / Edge Inference</span>
+      <span class="tag">ROS2</span>
+      <span class="tag">Monocular Perception</span>
+      <span class="tag">Synthetic Data</span>
+    </div>
+  </section>
+
+  <!-- ── Research ── -->
+  <section id="research">
+    <p class="section-label">Research themes</p>
+    <div class="pub-list">
+      <div class="pub-item">
+        <span class="pub-year">01</span>
+        <div>
+          <div class="pub-title">Monocular 3D Object Detection</div>
+          <div class="pub-venue">MonoDGP · MonoDPT · MonoDETR · Autonomous Racing Perception</div>
+        </div>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">02</span>
+        <div>
+          <div class="pub-title">6D Pose Estimation for Robotics</div>
+          <div class="pub-venue">GDRN · SAM-6D · EfficientPose · Industrial grasping pipelines</div>
+        </div>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">03</span>
+        <div>
+          <div class="pub-title">Synthetic Data & Domain Adaptation</div>
+          <div class="pub-venue">SyGRID dataset · RGB-to-Thermal translation · Off-road perception</div>
+        </div>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">04</span>
+        <div>
+          <div class="pub-title">Edge Deployment & Embedded AI</div>
+          <div class="pub-venue">NVIDIA Jetson Orin · TensorRT FP16/INT8 · tkDNN · C++ inference pipelines</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Publications ── -->
+  <section id="publications">
+    <p class="section-label">Selected publications</p>
+    <div class="pub-list">
+      <div class="pub-item">
+        <span class="pub-year">2025</span>
+        <div>
+          <div class="pub-title">Addressing challenges in industrial pick and place: A deep learning-based 6 Degrees-of-Freedom pose estimation solution</div>
+          <div class="pub-venue"> Computers in Industry </div>
+        </div>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">2025</span>
+        <div>
+          <div class="pub-title">Model-based underwater 6D pose estimation from RGB</div>
+          <div class="pub-venue">IEEE Robotics and Automation Letters </div>
+        </div>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">2024</span>
+        <div>
+          <div class="pub-title">Deep Image Prior for medical image denoising, a study about parameter initialization</div>
+          <div class="pub-venue"> Frontiers in Applied Mathematics and Statistics </div>
+        </div>
+      </div>
+      <div class="pub-item">
+        <span class="pub-year">2024</span>
+        <div>
+          <div class="pub-title">Segment Anything for Satellite Imagery: A Strong Baseline and a Regional Dataset for Automatic Field Delineation</div>
+          <div class="pub-venue">International Conference on Image Analysis and Processing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GitHub Repos ── -->
+  <section id="repos">
+    <p class="section-label">Open source — <span id="repo-count">loading…</span></p>
+    <div id="repos-container">
+      <p class="repos-loading">Fetching repositories from GitHub…</p>
+    </div>
+  </section>
+
+  <!-- ── Affiliations ── -->
+  <section id="affiliations">
+    <p class="section-label">Affiliations</p>
+    <p class="section-label" style="margin-top:0;margin-bottom:1rem;">Current</p>
+    <div class="affiliations" style="margin-bottom:2.5rem;">
+      <div class="affil-item">
+        <div class="affil-dot"></div>
+        <div>
+          <div class="affil-name">Hipert Srl</div>
+          <div class="affil-role">AI Engineer · Modena, Italy</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-bottom:1rem;">Past</p>
+    <div class="affiliations">
+      <div class="affil-item">
+        <div class="affil-dot" style="background:var(--muted);"></div>
+        <div>
+          <div class="affil-name">HiPeRT Lab · University of Modena and Reggio Emilia</div>
+          <div class="affil-role">AI Researcher · PhD in Computer Science · UNIMORE</div>
+        </div>
+      </div>
+      <div class="affil-item">
+        <div class="affil-dot" style="background:var(--muted);"></div>
+        <div>
+          <div class="affil-name">Technical University of Munich (TUM)</div>
+          <div class="affil-role">Visiting PhD Student · Munich, Germany</div>
+        </div>
+      </div>
+      <div class="affil-item">
+        <div class="affil-dot" style="background:var(--muted);"></div>
+        <div>
+          <div class="affil-name">Confindustria Mantova</div>
+          <div class="affil-role">AI Teacher · Industry Training Programme</div>
+        </div>
+      </div>
+      <div class="affil-item">
+        <div class="affil-dot" style="background:var(--muted);"></div>
+        <div>
+          <div class="affil-name">Women in Computer Vision (WiCV)</div>
+          <div class="affil-role">Workshop Co-Organiser · ICCV 2025 · Honolulu, Hawaii</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <p>Elena Govi · Modena, Italy</p>
+    <p>
+      <a href="https://github.com/EleGo9" target="_blank">github.com/EleGo9</a>
+    </p>
+  </footer>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const GITHUB_USER = 'EleGo9';
+
+  async function loadRepos() {
+    const container = document.getElementById('repos-container');
+    const countEl = document.getElementById('repo-count');
+    try {
+      const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=12`);
+      if (!res.ok) throw new Error('API error');
+      const repos = await res.json();
+
+      const filtered = repos.filter(r => !r.fork);
+      countEl.textContent = `${filtered.length} public repositories`;
+
+      const grid = document.createElement('div');
+      grid.className = 'repos-grid';
+
+      filtered.forEach((repo, i) => {
+        const a = document.createElement('a');
+        a.className = 'repo-card fade-in';
+        a.href = repo.html_url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.style.animationDelay = `${i * 0.06}s`;
+
+        const stars = repo.stargazers_count > 0
+          ? `<span>★ ${repo.stargazers_count}</span>` : '';
+        const lang = repo.language
+          ? `<span class="repo-lang">${repo.language}</span>` : '';
+        const desc = repo.description
+          ? `<p class="repo-desc">${repo.description}</p>`
+          : `<p class="repo-desc" style="color:var(--muted)">—</p>`;
+
+        a.innerHTML = `
+          <div class="repo-name">${repo.name}</div>
+          ${desc}
+          <div class="repo-meta">${lang}${stars}</div>
+        `;
+        grid.appendChild(a);
+      });
+
+      container.innerHTML = '';
+      container.appendChild(grid);
+
+    } catch (e) {
+      countEl.textContent = 'github.com/EleGo9';
+      container.innerHTML = `
+        <p style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);padding:1rem 0;">
+          Could not load repos automatically. 
+          <a href="https://github.com/EleGo9" target="_blank" style="color:var(--accent)">View on GitHub →</a>
+        </p>`;
+    }
+  }
+
+  loadRepos();
+
+  // Subtle scroll-based section reveals
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('section').forEach(s => {
+    s.style.transition = 'opacity 0.7s ea
